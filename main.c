@@ -1,6 +1,93 @@
+//LIBRERIAS UTILIZADAS
 #include <stdio.h>
 
 
+//ESTRUCTURAS NECESARIAS
+
+//STRUCT NODO (CORTESIA DE IRENE ZUCCAR)
+struct NodoAVL {
+int info;
+int altura;
+    struct NodoAVL *izq;
+    struct NodoAVL *der;
+};
+
+typedef struct NodoAVL tNodoAVL;
+typedef tNodoAVL *AVL;
+
+AVL IniciaAVL(){
+    AVL aux = NULL;
+    return aux;
+}
+
+//FUNCIONES SOBRE LAS ESTRUCTURAS
+AVL CreaNodo(int val){
+    AVL aux;
+    aux = (AB)malloc(sizeof(tNodo));
+    aux->info = val;
+    aux->izq = NULL;
+    aux->der = NULL;
+    aux->altura = 1;
+    return aux;
+}
+
+AVL Insertar(AVL A, int x)
+{
+    if (Vacio?(A)){
+        A = CreaNodo(x);
+    }
+    else
+    {
+        if (A->info > valor){
+            A->izq = Insertar(A->izq, x);
+        }
+        else{
+            A->der = Insertar(A->der, x);
+        }
+        A = ActualizarAltura(A);
+        A = Balancear(A);
+    }
+    return A;
+}
+
+AVL Balancear(AVL A)
+{
+    int condicion, dif;
+    if (Vacio?(A))
+    {
+        condicion = DiferenciaAlturaHijos(A);
+        if (condicion == 2)
+        {
+            dif = DiferenciaAlturaHijos(A->izq);
+            if (dif == 1 || dif == 0){
+                return RotarSimpleDer(A);   //Caso 2
+            }
+            else{
+                return RotarDobleIzquierdaDerecha(A);   //Caso 4
+            }
+        }
+        if (condicion == -2)
+        {
+            dif = DiferenciaAlturaHijos(A->der);
+
+            if (dif == -1 || dif == 0) {
+                return RotarSimpleIzq(A);   //Caso 3
+            }
+            else{
+                return RotarDobleDerechaIzquierda(A);   //Caso 5
+            }
+        }
+    }
+    return A;
+}
+
+
+
+
+
+
+
+//FUNCIONES
 int despliegue_menu(int opcion)
 {
 	printf("MENU \n\n");
@@ -57,5 +144,7 @@ void menu()
 
 void main()
 {
-	menu();
+    AVL a = IniciaAVL();
+    //printf(a.altura);
+	//menu();
 }
